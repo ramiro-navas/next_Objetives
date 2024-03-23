@@ -48,8 +48,11 @@ const config: Config = {
         logo: '60px',
         circle: '120px',
         "76": '76px',
-        "80": '70px',
-        "82": '90px',
+        "70": '70px',
+        "90": '90px',
+        "110": '110px',
+        "100": '100px',
+
       },
       height:{
         form: '600px',
@@ -61,8 +64,11 @@ const config: Config = {
         circle: '120px',
         staDiv: '35px',
         "166": '166px',
-        "80": '70px',
-        "82": '90px',
+        "70": '70px',
+        "90": '90px',
+        "110": '110px',
+        "100": '100px',
+        
       },
       strokeWidth:{
         "10": '10px'
@@ -72,7 +78,9 @@ const config: Config = {
         small: '35px',
         middle: '43px',
         big: '78px',
-        "10": "10px"
+        "3": "3px",
+        "10": "10px",
+        "21": "21px"
       },
       gridTemplateColumns:{
         or: '48% 4% 48% ',
@@ -84,7 +92,7 @@ const config: Config = {
       },
       zIndex:{
         "1": "1"
-      }
+      },
     },
   },
   plugins: [],

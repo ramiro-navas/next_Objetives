@@ -1,11 +1,27 @@
+"use client";
 import Caroucel from "@/components/home/Caroucel";
 import Logo from "@/components/home/Logo";
 import Options from "@/components/home/Options";
 import Stadistic from "@/components/home/Stadistic";
 import Objetive from "@/components/ui/Objetive";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 
 function Feed() {
+  const [objetive, setObjetive] = useState<ObjetiveInterface[]>([]);
+
+  const getObjetives = async () => {
+    const request = await fetch("/api/objetive/get/2", {
+      method: "GET",
+    });
+    const data = await request.json();
+    setObjetive(data.objetives);
+  };
+
+  useEffect(() => {
+    getObjetives();
+  }, []);
+
   return (
     <div className="p-4">
       <div className=" grid grid-cols-2 ">
@@ -27,9 +43,34 @@ function Feed() {
           </div>
         </div>
       </div>
-      <div>
-       <Objetive /> 
-      </div>
+      <section className="bg-back w-full h-fullv mt-21 p-3 rounded-16 ">
+        <h2 className="font-roboto font-extrabold text-center text-titles text-30">
+          Objetivos
+        </h2>
+        <div className="w-full h-full mt-10 p-3 rounded-16 grid grid-cols-2">
+          {objetive.length >= 1 ? (
+            <>
+              {objetive.map((obje: ObjetiveInterface) => {
+                return (
+                  <div key={obje.id}>
+                    <Objetive 
+                      title={obje.title} 
+                      amount= {obje.amount}
+                      progress={obje.progress}
+                      image={obje.image}
+
+                    />
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <h2>No hay objetivos</h2>
+            </>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

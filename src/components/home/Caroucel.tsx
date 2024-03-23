@@ -14,7 +14,7 @@ function Caroucel() {
             20%
           </h2>
           <div className="grid relative items-center">
-            <svg className="w-82 h-82  ">
+            <svg className="w-90 h-90  ">
               <defs>
                 <linearGradient id="linear">
                   <stop offset="0%" stopColor="#fff" stopOpacity="0.2" />
@@ -39,7 +39,7 @@ function Caroucel() {
             <img
               src={image}
               alt="objetive_icon"
-              className="w-80 h-80 ml-10 z-1 absolute rounded-100%"
+              className="w-70 h-70 ml-10 z-1 absolute rounded-100%"
             />
           </div>
         </section>
