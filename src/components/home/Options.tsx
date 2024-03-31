@@ -1,10 +1,14 @@
 import React from 'react'
 import { BiPlus, BiUser } from 'react-icons/bi'
 
-function Options() {
+type Props = {
+  setFormState: (formState: boolean) => void,
+}
+
+function Options(props: Props) {
   return (
     <div className='w-76 h-166 bg-back rounded-16 grid justify-center'>
-      <button>
+      <button onClick={()=> props.setFormState(true)}>
         <BiPlus className='text-titles text-60'/>
       </button>
       <button>

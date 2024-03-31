@@ -39,7 +39,7 @@ function Caroucel() {
             <img
               src={image}
               alt="objetive_icon"
-              className="w-70 h-70 ml-10 z-1 absolute rounded-100%"
+              className="w-70 h-70 ml-10 absolute rounded-100%"
             />
           </div>
         </section>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { BiLowVision } from "react-icons/bi";
 import { logo, google } from "@/helpers/helpers";
 import { Credential } from "@/interface/login";
-import Title from "@/components/ui/Title";
+import { Title } from "@/components/ui/Title";
 
 function Login() {
   const [password, setPassword] = useState<boolean>(true);

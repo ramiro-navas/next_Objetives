@@ -17,6 +17,7 @@ const config: Config = {
         start: "#BAACDD",
         middle: "#87E5D3",
         end: "rgba(255,255,255,0)",
+        semi: "rgba(0,0,0,.5)"
       },
       fontSize: {
         "10": '10px',
@@ -40,7 +41,8 @@ const config: Config = {
       },
       padding:{
         "2": '2px',
-        "51": '51px'
+        "51": '51px',
+        "86": '86px',
       },
       width:{
         form: '448px',
@@ -52,11 +54,14 @@ const config: Config = {
         "90": '90px',
         "110": '110px',
         "100": '100px',
-
+        "125": '125px',
+        "500": '500px',
+        "600": '600px',
       },
       height:{
         form: '600px',
         input: '80px',
+        "30": '30px',
         button: '32px',
         google: '20px',
         logo: '70px',
@@ -68,7 +73,7 @@ const config: Config = {
         "90": '90px',
         "110": '110px',
         "100": '100px',
-        
+        "200": '200px', 
       },
       strokeWidth:{
         "10": '10px'
