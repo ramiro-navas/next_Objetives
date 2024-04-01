@@ -69,17 +69,17 @@ export const POST = async (request: any) => {
               }
             )
             .end(buffer);
-        }).then(async(cloudy)=>{
+        }).then(async (cloudy) => {
           await prisma.objetive.update({
             where: {
-              id:  objetiveCreate.id
+              id: objetiveCreate.id,
             },
             data: {
               image: await cloudy?.secure_url,
-            }
+            },
           });
-        }) 
-        console.log(cloud)
+        });
+        console.log(cloud);
       }
 
       return NextResponse.json({

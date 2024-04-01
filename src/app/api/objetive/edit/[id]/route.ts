@@ -6,13 +6,11 @@ import { NextResponse } from "next/server";
 const { verify } = require("jsonwebtoken");
 
 export const PUT = async (request: any, { params }: any) => {
-
   cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
     api_secret: process.env.API_SECRET,
   });
-
 
   const data = await request.formData();
   const image = await data.get("image");
@@ -54,7 +52,6 @@ export const PUT = async (request: any, { params }: any) => {
               }
             )
             .end(buffer);
-            
         }).then(async (cloudy) => {
           await prisma.objetive.update({
             where: {
@@ -78,11 +75,10 @@ export const PUT = async (request: any, { params }: any) => {
         error,
       });
     }
-  }else{
+  } else {
     return NextResponse.json({
       status: "error",
       message: "El objetivo no existe",
-      
     });
   }
 };

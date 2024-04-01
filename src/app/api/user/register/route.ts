@@ -15,8 +15,8 @@ export const POST = async (request: any, { params }: any) => {
 
     if (exist) {
       return NextResponse.json({
-        status: 'success',
-        mesagge: 'El usuario ya existe',
+        status: "success",
+        mesagge: "El usuario ya existe",
       });
     } else {
       const userSaved = await prisma.user.create({
@@ -27,20 +27,20 @@ export const POST = async (request: any, { params }: any) => {
         },
       });
       return NextResponse.json({
-        status: 'success',
-        mesagge: 'Se ragistró con exito al usuario',
+        status: "success",
+        mesagge: "Se ragistró con exito al usuario",
         user: {
           id: userSaved.id,
           name: userSaved.name,
           email: userSaved.email,
         },
-        token: ''
+        token: "",
       });
     }
   } catch (error: any) {
     return NextResponse.json({
-      status: 'error',
-      message: 'Error al registrar el usuario',
+      status: "error",
+      message: "Error al registrar el usuario",
       error: error.message,
     });
   }
