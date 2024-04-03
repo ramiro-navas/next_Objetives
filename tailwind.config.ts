@@ -49,6 +49,7 @@ const config: Config = {
         google: '20px',
         logo: '60px',
         circle: '120px',
+        "40": '40px',
         "76": '76px',
         "70": '70px',
         "90": '90px',
@@ -59,6 +60,7 @@ const config: Config = {
         "600": '600px',
       },
       height:{
+        "40": '40px',
         form: '600px',
         input: '80px',
         "30": '30px',
