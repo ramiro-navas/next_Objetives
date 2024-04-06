@@ -7,7 +7,7 @@ function Logo() {
       <img
         src={logo}
         alt="logo_image"
-        className="w-logo h-logo"
+        className="w-60  h-70 "
         style={{
           borderRight: "1px solid ",
           borderImage:

@@ -2,9 +2,12 @@ import React from "react";
 import { Button, Input } from "./index";
 import { RxCross1 } from "react-icons/rx";
 import { BiImageAdd } from "react-icons/bi";
+import { Objetive } from "@/interface/objetive";
 
 type Props = {
+  handleObjetive: (e: any)=>void,
   setFormState: (formState: boolean) => void;
+  newObjetive: Objetive
 };
 
 export function Form(props: Props) {
@@ -25,8 +28,8 @@ export function Form(props: Props) {
           Nuevo objetivo
         </h2>
         <div className="flex">
-          <Input placeholder="Objetivo" type="text" name="title" required />
-          <Input placeholder="Cantidad" type="number" name="amount" required />
+          <Input placeholder="Objetivo" type="text" name="title" required onChange={props.handleObjetive}/>
+          <Input placeholder="Cantidad" type="number" name="amount" required onChange={props.handleObjetive} />
           <div className="bg-transparent relative">
             <input
               type="file"
@@ -37,7 +40,9 @@ export function Form(props: Props) {
           </div>
         </div>
         <div className="flex justify-center">
-          <button className="w-125 h-30 rounded-16 bg-titles flex items-center justify-center ">
+          <button className="w-125 h-30 rounded-16 bg-titles flex items-center justify-center " onClick={(e: any)=>{
+            e.preventDefault(); 
+            console.log(props.newObjetive)}} >
             Agregar
           </button>
         </div>

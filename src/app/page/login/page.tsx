@@ -28,27 +28,24 @@ function Login() {
       body: JSON.stringify(credentials),
     });
     const data = await request.json();
-    console.log(data)
+    console.log(data);
   };
 
-  const getProfile = async (e: any)=>{
+  const getProfile = async (e: any) => {
     e.preventDefault();
-    const request = await fetch( "/api/user/profile");
+    const request = await fetch("/api/user/profile");
     const data = await request.json();
-    console.log(data)
-  }
+    console.log(data);
+  };
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <form
-        className="w-form h-form rounded-16 bg-back px-51"
-        
-      >
-        <h2 className=" text-titles text-40 text-center font-bold font-roboto mt-middle">
+      <form className="w-448 h-600 rounded-16 bg-back px-51">
+        <h2 className=" text-titles text-40 text-center font-bold font-roboto mt-43 ">
           Inicio de sesíon
         </h2>
         <div className="flex justify-center">
-          <img src={logo} alt="logo_image" className="w-20 h-20 text-center" />
+          <img src={logo} alt="logo_image" className="w-80 h-80 text-center" />
         </div>
         <Title />
         <Input
@@ -90,18 +87,14 @@ function Login() {
             Olvidé mi contraseña
           </Link>
         </div>
-        <Button
-        onClick={handleSubmit}
-        >Iniciar sesíon</Button>
+        <Button onClick={handleSubmit}>Iniciar sesíon</Button>
         <div className="grid grid-cols-or items-center mb-8">
           <hr className="h-px border-none rounded-md bg-gradient-to-r from-start via-middle to-end" />
           <h3 className="font-roboto text-12 text-center">O</h3>
           <hr className="h-px border-none rounded-md bg-gradient-to-r from-start via-middle to-end" />
         </div>
-        <Button 
-        onClick={getProfile}
-        >
-          <img src={google} alt="google_logo" className="w-google h-google" />
+        <Button onClick={getProfile}>
+          <img src={google} alt="google_logo" className="w-20 h-20" />
         </Button>
       </form>
     </div>

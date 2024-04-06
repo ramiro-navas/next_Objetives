@@ -4,7 +4,7 @@ import React from "react";
 function Caroucel() {
   const p: number = 100;
   return (
-    <div className="w-full h-166 bg-back ml-button rounded-16">
+    <div className="w-full h-166 bg-back ml-16 rounded-16">
       <h2 className="text-center text-30 text-titles font-extrabold font-roboto ">
         Objetivo reciente
       </h2>

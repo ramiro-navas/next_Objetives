@@ -10,7 +10,7 @@ import { Form } from "@/components/ui";
 
 function Feed() {
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
-
+  const [formState, setFormState] = useState<boolean>(false)
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
     title: "",
     amount: 0,
@@ -19,7 +19,7 @@ function Feed() {
 
   const createObjetive = async ()=>{
     if(newObjetive.title !== ""){
-
+      
     }
   }
   
@@ -28,6 +28,7 @@ function Feed() {
       ...newObjetive,
       [e.target.name]: e.target.value
     })
+    console.log(newObjetive)
   }
 
   const getObjetives = async () => {
@@ -42,14 +43,12 @@ function Feed() {
     getObjetives();
   }, []);
 
-  const [formState, setFormState] = useState<boolean>(false)
-
 
   return (
     <div className="p-4">
       <div className=" grid grid-cols-2 ">
         <div className="grid">
-          <div className="w-full h-logo p-2 rounded-16 flex items-center bg-back">
+          <div className="w-full h-70 p-2 rounded-16 flex items-center bg-back">
             <Logo />
           </div>
           <div className="w-full flex items-end">
@@ -96,8 +95,9 @@ function Feed() {
         </div>
       </section>
       {formState && <Form  
-      
+      handleObjetive={handleObjetive}
       setFormState={setFormState}
+      newObjetive={newObjetive}
       />}
     </div>
   );

@@ -3,9 +3,9 @@ import { Input, Button } from "@/components/ui";
 import { logo } from "@/helpers/helpers";
 import { useState } from "react";
 import { BiLowVision } from "react-icons/bi";
-import Link from 'next/link'
-import { BiArrowBack } from 'react-icons/bi'
-import Title from "@/components/ui/Title";
+import Link from "next/link";
+import { BiArrowBack } from "react-icons/bi";
+import { Title } from "@/components/ui/Title";
 
 function Register() {
   const [password, setPassword] = useState<boolean>(true);
@@ -13,15 +13,15 @@ function Register() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <form className="w-form h-form rounded-16 bg-back px-51 relative">
+      <form className="w-448 h-600 rounded-16 bg-back px-51 relative">
         <Link href="/page/login" className="absolute top-2 left-2">
-          <BiArrowBack className="text-titles text-20"/>
+          <BiArrowBack className="text-titles text-20" />
         </Link>
         <h2 className=" text-titles text-40 text-center font-bold font-roboto mt-middle">
           Registro
         </h2>
         <div className="flex justify-center">
-          <img src={logo} alt="logo_image" className="w-20 h-20 text-center" />
+          <img src={logo} alt="logo_image" className="w-80 h-80 text-center" />
         </div>
         <Title />
         <Input type="text" placeholder="Nombre" />
