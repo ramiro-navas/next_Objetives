@@ -37,6 +37,7 @@ function Feed() {
     });
     const data = await request.json();
     setObjetives(data.objetives);
+    console.log(data)
   };
 
   useEffect(() => {
