@@ -7,29 +7,24 @@ import Objetive from "@/components/ui/Objetive";
 import React, { useEffect, useState } from "react";
 import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Form } from "@/components/ui";
+import { title } from "process";
 
 function Feed() {
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
-  const [formState, setFormState] = useState<boolean>(false)
+  const [formState, setFormState] = useState<boolean>(false);
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
     title: "",
     amount: 0,
     progress: 0,
-  })
+    image: "",
+  });
 
-  const createObjetive = async ()=>{
-    if(newObjetive.title !== ""){
-      
-    }
-  }
-  
-  const handleObjetive = (e: any) =>{
+  const handleObjetive = (e: any) => {
     setNewObjetive({
       ...newObjetive,
-      [e.target.name]: e.target.value
-    })
-    console.log(newObjetive)
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const getObjetives = async () => {
     const request = await fetch("/api/objetive/get/2", {
@@ -37,13 +32,11 @@ function Feed() {
     });
     const data = await request.json();
     setObjetives(data.objetives);
-    console.log(data)
   };
 
   useEffect(() => {
     getObjetives();
   }, []);
-
 
   return (
     <div className="p-4">
@@ -53,9 +46,7 @@ function Feed() {
             <Logo />
           </div>
           <div className="w-full flex items-end">
-            <Options 
-            setFormState={setFormState}
-            />
+            <Options setFormState={setFormState} />
             <Caroucel />
           </div>
         </div>
@@ -78,9 +69,9 @@ function Feed() {
               {objetives.map((obje: ObjetiveInterface) => {
                 return (
                   <div key={obje.id}>
-                    <Objetive 
-                      title={obje.title} 
-                      amount= {obje.amount}
+                    <Objetive
+                      title={obje.title}
+                      amount={obje.amount}
                       progress={obje.progress}
                       image={obje.image}
                     />
@@ -95,11 +86,16 @@ function Feed() {
           )}
         </div>
       </section>
-      {formState && <Form  
-      handleObjetive={handleObjetive}
-      setFormState={setFormState}
-      newObjetive={newObjetive}
-      />}
+      {formState && (
+        <Form
+          handleObjetive={handleObjetive}
+          setFormState={setFormState}
+          newObjetive={newObjetive}
+          setNewObjetive={setNewObjetive}
+          objetives={objetives}
+          setObjetives={setObjetives}
+        />
+      )}
     </div>
   );
 }

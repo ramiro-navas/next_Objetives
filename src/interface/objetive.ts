@@ -5,5 +5,5 @@ export interface Objetive {
   progress: number;
   user?: object;
   userId?: number;
-  image?: string;
+  image?: any;
 }

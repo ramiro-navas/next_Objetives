@@ -8,7 +8,7 @@ export const middleware = async (request: any) => {
       return NextResponse.redirect(new URL("/page/login", request.url));
     }
     try {
-      const ob = await jwtVerify(token.value, "S3cR370D3274d0");
+      const ob = await jwtVerify(token.value, process.env.SECRET_VALUE);
       console.log(ob)
     } catch (error) {
       console.log(error)
