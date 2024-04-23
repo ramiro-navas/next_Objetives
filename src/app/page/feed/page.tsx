@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Form } from "@/components/ui";
 import { title } from "process";
+import { Stadistic as StadisticInterface } from "@/interface/stadistic";
 
 function Feed() {
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
@@ -18,6 +19,12 @@ function Feed() {
     progress: 0,
     image: "",
   });
+  const [stadistic, setStadistic] = useState<StadisticInterface>({
+    objetives: 0,
+    objetivesComplete: 0,
+    money: 0,
+    moneyComplete: 0,
+  });
 
   const handleObjetive = (e: any) => {
     setNewObjetive({
@@ -27,7 +34,7 @@ function Feed() {
   };
 
   const getObjetives = async () => {
-    const request = await fetch("/api/objetive/get/2", {
+    const request = await fetch("/api/objetive/get/1", {
       method: "GET",
     });
     const data = await request.json();
@@ -52,10 +59,18 @@ function Feed() {
         </div>
         <div className="w-full grid grid-cols-2">
           <div className="flex justify-end ">
-            <Stadistic title="Dinero total" />
+            <Stadistic
+              title="Dinero total"
+              progress={stadistic.moneyComplete}
+              total={stadistic.money}
+            />
           </div>
           <div className="flex justify-end ">
-            <Stadistic title="Todos los objetivos" />
+            <Stadistic
+              title="Todos los objetivos"
+              progress={stadistic.objetivesComplete}
+              total={stadistic.objetives}
+            />
           </div>
         </div>
       </div>
