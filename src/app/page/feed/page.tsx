@@ -10,6 +10,12 @@ import { Form } from "@/components/ui";
 import { title } from "process";
 import { Stadistic as StadisticInterface } from "@/interface/stadistic";
 
+interface Auth {
+  id?: number;
+  email: string;
+  name: string;
+}
+
 function Feed() {
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
   const [formState, setFormState] = useState<boolean>(false);
@@ -25,6 +31,10 @@ function Feed() {
     money: 0,
     moneyComplete: 0,
   });
+  const [auth, setAuth] = useState<Auth>({
+    email: "",
+    name: "",
+  });
 
   const handleObjetive = (e: any) => {
     setNewObjetive({
@@ -33,16 +43,20 @@ function Feed() {
     });
   };
 
-  const getObjetives = async () => {
-    const request = await fetch("/api/objetive/get/1", {
+  const profile = async () => {
+    const request = await fetch("/api/user/profile");
+    const data = await request.json();
+    setAuth(data.user);
+    const obRequest = await fetch(`/api/objetive/get/${data.user.id}`, {
       method: "GET",
     });
-    const data = await request.json();
-    setObjetives(data.objetives);
+    const obData = await obRequest.json();
+    setObjetives(obData.objetives);
+    return data.user;
   };
 
   useEffect(() => {
-    getObjetives();
+    profile();
   }, []);
 
   return (
