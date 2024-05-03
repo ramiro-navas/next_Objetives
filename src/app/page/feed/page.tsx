@@ -9,6 +9,7 @@ import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Form } from "@/components/ui";
 import { title } from "process";
 import { Stadistic as StadisticInterface } from "@/interface/stadistic";
+import { useAppContext } from "@/Context";
 
 interface Auth {
   id?: number;
@@ -17,6 +18,9 @@ interface Auth {
 }
 
 function Feed() {
+  const {  } = useAppContext();//*here, you can use all values in AppContext.provider
+
+
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
   const [formState, setFormState] = useState<boolean>(false);
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
