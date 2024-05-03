@@ -1,7 +1,6 @@
 import { test as image } from "@/helpers/helpers";
 import React, { useContext } from "react";
 import { addPoint } from "@/helpers/addPoint";
-import Context from "@/Context/Context";
 
 type Props = {
   title: string;

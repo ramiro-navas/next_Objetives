@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+interface Props {
+  title: string;
+  total: number;
+  progress: number;
+}
 
-function Stadistic({ title, porcent, complete, amount }: any) {
-  const p: number = 50;
+function Stadistic(props: Props) {
+  const { progress, total } = props;
+
+  const [porcent, setPorcent] = useState<number>(0);
+
+  useEffect(() => {
+    if (props.progress <= 0) {
+      setPorcent(0);
+    } else {
+      setPorcent((props.progress / props.total) * 100);
+    }
+  }, []);
+
   return (
     <div className="w-10/12 bg-back rounded-16 p-5">
-      <h2 className="font-bold text-20 text-center text-titles font-roboto">{title}</h2>
+      <h2 className="font-bold text-20 text-center text-titles font-roboto">
+        {props.title}
+      </h2>
       <div className="w-full relative flex items-center justify-center">
         <div>
           <svg>
@@ -25,7 +43,7 @@ function Stadistic({ title, porcent, complete, amount }: any) {
             <circle
               className="fill-none  stroke-10 flex items-center  justify-center"
               style={{
-                strokeDasharray: p + ",100",
+                strokeDasharray: porcent + ",100",
                 transform: "rotate(-90deg)",
                 transformOrigin: "50%",
                 stroke: `url(#linearS)`,
@@ -37,7 +55,9 @@ function Stadistic({ title, porcent, complete, amount }: any) {
             />
           </svg>
         </div>
-        <p className="font-extrabold text-26 absolute text-center font-roboto ">{p}%</p>
+        <p className="font-extrabold text-26 absolute text-center font-roboto ">
+          {porcent}%
+        </p>
       </div>
       <div className="w-full grid grid-cols-2  bg-font rounded-16 p-2">
         <div
@@ -52,13 +72,15 @@ function Stadistic({ title, porcent, complete, amount }: any) {
             Completado
           </h3>
           <p className="font-bold text-12 text-titles text-center font-roboto">
-            17.159.000
+            {props.progress}
           </p>
         </div>
         <div className="grid justify-center">
-          <h3 className="font-bold text-12 text-white text-center font-roboto">total</h3>
+          <h3 className="font-bold text-12 text-white text-center font-roboto">
+            total
+          </h3>
           <p className="font-bold text-12 text-titles text-center font-roboto">
-            29.659.000
+            {props.total}
           </p>
         </div>
       </div>

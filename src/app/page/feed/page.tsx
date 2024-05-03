@@ -8,8 +8,19 @@ import React, { useEffect, useState } from "react";
 import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Form } from "@/components/ui";
 import { title } from "process";
+import { Stadistic as StadisticInterface } from "@/interface/stadistic";
+import { useAppContext } from "@/Context";
+
+interface Auth {
+  id?: number;
+  email: string;
+  name: string;
+}
 
 function Feed() {
+  const {  } = useAppContext();//*here, you can use all values in AppContext.provider
+
+
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
   const [formState, setFormState] = useState<boolean>(false);
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
@@ -17,6 +28,16 @@ function Feed() {
     amount: 0,
     progress: 0,
     image: "",
+  });
+  const [stadistic, setStadistic] = useState<StadisticInterface>({
+    objetives: 0,
+    objetivesComplete: 0,
+    money: 0,
+    moneyComplete: 0,
+  });
+  const [auth, setAuth] = useState<Auth>({
+    email: "",
+    name: "",
   });
 
   const handleObjetive = (e: any) => {
@@ -26,16 +47,20 @@ function Feed() {
     });
   };
 
-  const getObjetives = async () => {
-    const request = await fetch("/api/objetive/get/2", {
+  const profile = async () => {
+    const request = await fetch("/api/user/profile");
+    const data = await request.json();
+    setAuth(data.user);
+    const obRequest = await fetch(`/api/objetive/get/${data.user.id}`, {
       method: "GET",
     });
-    const data = await request.json();
-    setObjetives(data.objetives);
+    const obData = await obRequest.json();
+    setObjetives(obData.objetives);
+    return data.user;
   };
 
   useEffect(() => {
-    getObjetives();
+    profile();
   }, []);
 
   return (
@@ -52,10 +77,18 @@ function Feed() {
         </div>
         <div className="w-full grid grid-cols-2">
           <div className="flex justify-end ">
-            <Stadistic title="Dinero total" />
+            <Stadistic
+              title="Dinero total"
+              progress={stadistic.moneyComplete}
+              total={stadistic.money}
+            />
           </div>
           <div className="flex justify-end ">
-            <Stadistic title="Todos los objetivos" />
+            <Stadistic
+              title="Todos los objetivos"
+              progress={stadistic.objetivesComplete}
+              total={stadistic.objetives}
+            />
           </div>
         </div>
       </div>
