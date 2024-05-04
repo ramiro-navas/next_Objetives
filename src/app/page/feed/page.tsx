@@ -1,67 +1,29 @@
 "use client";
+import React from "react";
 import Caroucel from "@/components/home/Caroucel";
 import Logo from "@/components/home/Logo";
 import Options from "@/components/home/Options";
 import Stadistic from "@/components/home/Stadistic";
 import Objetive from "@/components/ui/Objetive";
-import React, { useEffect, useState } from "react";
 import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Form } from "@/components/ui";
-import { title } from "process";
-import { Stadistic as StadisticInterface } from "@/interface/stadistic";
 import { useAppContext } from "@/Context";
 
-interface Auth {
-  id?: number;
-  email: string;
-  name: string;
-}
-
 function Feed() {
-  const {  } = useAppContext();//*here, you can use all values in AppContext.provider
-
-
-  const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
-  const [formState, setFormState] = useState<boolean>(false);
-  const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
-    title: "",
-    amount: 0,
-    progress: 0,
-    image: "",
-  });
-  const [stadistic, setStadistic] = useState<StadisticInterface>({
-    objetives: 0,
-    objetivesComplete: 0,
-    money: 0,
-    moneyComplete: 0,
-  });
-  const [auth, setAuth] = useState<Auth>({
-    email: "",
-    name: "",
-  });
-
-  const handleObjetive = (e: any) => {
-    setNewObjetive({
-      ...newObjetive,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const profile = async () => {
-    const request = await fetch("/api/user/profile");
-    const data = await request.json();
-    setAuth(data.user);
-    const obRequest = await fetch(`/api/objetive/get/${data.user.id}`, {
-      method: "GET",
-    });
-    const obData = await obRequest.json();
-    setObjetives(obData.objetives);
-    return data.user;
-  };
-
-  useEffect(() => {
-    profile();
-  }, []);
+  const {
+    formState,
+    newObjetive,
+    objetives,
+    setFormState,
+    setNewObjetive,
+    setObjetives,
+    auth,
+    setAuth,
+    setStadistic,
+    stadistic,
+    profile,
+    handleObjetive,
+  } = useAppContext();
 
   return (
     <div className="p-4">
@@ -119,16 +81,7 @@ function Feed() {
           )}
         </div>
       </section>
-      {formState && (
-        <Form
-          handleObjetive={handleObjetive}
-          setFormState={setFormState}
-          newObjetive={newObjetive}
-          setNewObjetive={setNewObjetive}
-          objetives={objetives}
-          setObjetives={setObjetives}
-        />
-      )}
+      {formState && <Form />}
     </div>
   );
 }

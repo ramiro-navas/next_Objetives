@@ -6,10 +6,15 @@ import { BiLowVision } from "react-icons/bi";
 import Link from "next/link";
 import { BiArrowBack } from "react-icons/bi";
 import { Title } from "@/components/ui/Title";
+import { useAppContext } from "@/Context";
 
 function Register() {
-  const [password, setPassword] = useState<boolean>(true);
-  const [confirmPassword, setConfirmPassword] = useState<boolean>(true);
+  const {
+    registerPassword,
+    setRegisterPassword,
+    registerConfirmPassword,
+    setRegisterConfirmPassword,
+  } = useAppContext();
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -31,14 +36,14 @@ function Register() {
         <div className="flex relative mt-12 mb-2">
           <Input
             placeholder="Contraseña"
-            type={password === true ? "password" : "text"}
+            type={registerPassword === true ? "password" : "text"}
             required
           />
           <button
             className="absolute top-0 right-0 "
             onClick={(e) => {
               e.preventDefault();
-              setPassword(!password);
+              setRegisterPassword(!registerPassword);
             }}
           >
             <BiLowVision className="text-titles text-20" />
@@ -48,14 +53,14 @@ function Register() {
         <div className="flex relative mt-12 mb-2">
           <Input
             placeholder="Confirmar contraseña"
-            type={confirmPassword === true ? "password" : "text"}
+            type={registerConfirmPassword === true ? "password" : "text"}
             required
           />
           <button
             className="absolute top-0 right-0 "
             onClick={(e) => {
               e.preventDefault();
-              setConfirmPassword(!confirmPassword);
+              setRegisterConfirmPassword(!registerConfirmPassword);
             }}
           >
             <BiLowVision className="text-titles text-20" />

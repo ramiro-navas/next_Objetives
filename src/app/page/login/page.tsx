@@ -1,42 +1,21 @@
 "use client";
 import { Input, Button } from "@/components/ui";
 import Link from "next/link";
-import { useState } from "react";
 import { BiLowVision } from "react-icons/bi";
 import { logo, google } from "@/helpers/helpers";
-import { Credential } from "@/interface/login";
 import { Title } from "@/components/ui/Title";
+import { useAppContext } from "@/Context";
 
 function Login() {
-  const [password, setPassword] = useState<boolean>(true);
-  const [credentials, setCredentials] = useState<Credential>({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e: any) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const request = await fetch("/api/user/login", {
-      method: "POST",
-      body: JSON.stringify(credentials),
-    });
-    const data = await request.json();
-    console.log(data);
-  };
-
-  const getProfile = async (e: any) => {
-    e.preventDefault();
-    const request = await fetch("/api/user/profile");
-    const data = await request.json();
-    console.log(data);
-  };
+  const {
+    handleChange,
+    handleSubmit,
+    getProfile,
+    loginPassword,
+    setLoginPassword,
+    credentials,
+    setCredentials,
+  } = useAppContext();
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -58,7 +37,7 @@ function Login() {
         <div className="flex relative mt-12 mb-2">
           <Input
             placeholder="Contraseña"
-            type={password === true ? "password" : "text"}
+            type={loginPassword === true ? "password" : "text"}
             name="password"
             required
             onChange={handleChange}
@@ -67,7 +46,7 @@ function Login() {
             className="absolute top-0 right-0 "
             onClick={(e) => {
               e.preventDefault();
-              setPassword(!password);
+              setLoginPassword(!loginPassword);
             }}
           >
             <BiLowVision className="text-titles text-20" />
