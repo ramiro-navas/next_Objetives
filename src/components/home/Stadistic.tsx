@@ -1,3 +1,4 @@
+import { useAppContext } from "@/Context";
 import React, { useEffect, useState } from "react";
 interface Props {
   title: string;
@@ -6,6 +7,9 @@ interface Props {
 }
 
 function Stadistic(props: Props) {
+
+  const { addPoint } = useAppContext();
+
   const { progress, total } = props;
 
   const [porcent, setPorcent] = useState<number>(0);
@@ -72,7 +76,7 @@ function Stadistic(props: Props) {
             Completado
           </h3>
           <p className="font-bold text-12 text-titles text-center font-roboto">
-            {props.progress}
+            {addPoint(props.progress)}
           </p>
         </div>
         <div className="grid justify-center">
@@ -80,7 +84,7 @@ function Stadistic(props: Props) {
             total
           </h3>
           <p className="font-bold text-12 text-titles text-center font-roboto">
-            {props.total}
+            {addPoint(props.total)}
           </p>
         </div>
       </div>

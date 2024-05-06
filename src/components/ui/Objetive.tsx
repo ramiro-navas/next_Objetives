@@ -1,6 +1,6 @@
 import { test as image } from "@/helpers/helpers";
 import React, { useContext } from "react";
-import { addPoint } from "@/helpers/addPoint";
+import { useAppContext } from "@/Context";
 
 type Props = {
   title: string;
@@ -10,6 +10,7 @@ type Props = {
 };
 
 function Objetive(props: Props) {
+  const { addPoint } = useAppContext();
   let p: number = 0;
 
   return (

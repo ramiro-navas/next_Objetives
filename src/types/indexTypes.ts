@@ -28,4 +28,8 @@ export type ContextType = {
   setRegisterPassword: (registerPassword : boolean)=> void;
   registerConfirmPassword: boolean;
   setRegisterConfirmPassword: (registerConfirmPassword : boolean)=> void;
+  stateObjetive: number;
+  setStateObjetive: (stateObjetive: number)=> void;
+  stateMoney: number;
+  addPoint: (n: number)=> string;
 }

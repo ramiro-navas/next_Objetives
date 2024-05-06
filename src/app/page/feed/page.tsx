@@ -23,6 +23,9 @@ function Feed() {
     stadistic,
     profile,
     handleObjetive,
+    stateObjetive,
+    setStateObjetive,
+    stateMoney,
   } = useAppContext();
 
   return (
@@ -42,14 +45,14 @@ function Feed() {
             <Stadistic
               title="Dinero total"
               progress={stadistic.moneyComplete}
-              total={stadistic.money}
+              total={stateMoney}
             />
           </div>
           <div className="flex justify-end ">
             <Stadistic
               title="Todos los objetivos"
               progress={stadistic.objetivesComplete}
-              total={stadistic.objetives}
+              total={stateObjetive}
             />
           </div>
         </div>

@@ -33,24 +33,33 @@ const AppContext = createContext<ContextType>({
   handleObjetive: () => {},
   profile: () => {},
   createObjetive: () => {},
-  handleSubmit: ()=>{},
-  handleChange: ()=> {},
+  handleSubmit: () => {},
+  handleChange: () => {},
   loginPassword: true,
-  setLoginPassword: ()=>{},
+  setLoginPassword: () => {},
   credentials: {
     email: "",
     password: "",
   },
-  setCredentials:()=>{},
-  getProfile: ()=>{},
+  setCredentials: () => {},
+  getProfile: () => {},
   registerPassword: true,
-  setRegisterPassword: ()=>{},
+  setRegisterPassword: () => {},
   registerConfirmPassword: true,
-  setRegisterConfirmPassword: ()=>{},
+  setRegisterConfirmPassword: () => {},
+  stateObjetive: 0,
+  setStateObjetive: () => {},
+  stateMoney: 0,
+  addPoint: ()=> ""
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
+  //#region states/variables
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
+  const [stateMoney, setStateMoney] = useState<number>(0);
+  const [stateObjetive, setStateObjetive] = useState<number>(0);
+  const [stateMoneyComplete, setStateMoneyComplete] = useState<number>(0);
+  const [stateObjetiveComplete, setStateObjetiveComplete] = useState<number>(0);
   const [formState, setFormState] = useState<boolean>(false);
   const [registerPassword, setRegisterPassword] = useState<boolean>(true);
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState<boolean>(true);
@@ -70,6 +79,13 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     email: "",
     name: "",
   });
+  const [loginPassword, setLoginPassword] = useState<boolean>(true);
+  const [credentials, setCredentials] = useState<Credential>({
+    email: "",
+    password: "",
+  });
+
+  //#region functions
   const handleObjetive = (e: any) => {
     setNewObjetive({
       ...newObjetive,
@@ -86,6 +102,12 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     });
     const obData = await obRequest.json();
     setObjetives(obData.objetives);
+    let myTotalMoney: number = 0
+    for(let i: number = 0; i < obData.objetives.length; i++){
+      myTotalMoney+= parseInt(obData.objetives[i].amount);
+      setStateMoney(myTotalMoney)
+    }
+    setStateObjetive(obData.objetives.length);
     return data.user;
   };
   const createObjetive = async () => {
@@ -113,11 +135,6 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const [loginPassword, setLoginPassword] = useState<boolean>(true);
-  const [credentials, setCredentials] = useState<Credential>({
-    email: "",
-    password: "",
-  });
   const handleChange = (e: any) => {
     setCredentials({
       ...credentials,
@@ -141,11 +158,20 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     const data = await request.json();
     console.log(data);
   };
+  const addPoint = (numero: number): string => {
+  // Convertir el número a una cadena y dividirlo en partes por cada tres dígitos
+  const partes = numero.toString().split(".");
+  partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+  // Unir las partes con el punto de mil
+  return partes.join(".");
+};
+
 
   useEffect(() => {
     profile();
   }, []);
-
+  //#region values
   return (
     <AppContext.Provider
       value={{
@@ -173,6 +199,10 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         setRegisterPassword,
         registerConfirmPassword,
         setRegisterConfirmPassword,
+        stateObjetive,
+        setStateObjetive,
+        stateMoney,
+        addPoint,
       }}
     >
       {children}
