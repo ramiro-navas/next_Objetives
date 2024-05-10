@@ -50,7 +50,7 @@ const AppContext = createContext<ContextType>({
   stateObjetive: 0,
   setStateObjetive: () => {},
   stateMoney: 0,
-  addPoint: ()=> ""
+  addPoint: () => "",
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -62,7 +62,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   const [stateObjetiveComplete, setStateObjetiveComplete] = useState<number>(0);
   const [formState, setFormState] = useState<boolean>(false);
   const [registerPassword, setRegisterPassword] = useState<boolean>(true);
-  const [registerConfirmPassword, setRegisterConfirmPassword] = useState<boolean>(true);
+  const [registerConfirmPassword, setRegisterConfirmPassword] =
+    useState<boolean>(true);
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
     title: "",
     amount: 0,
@@ -102,10 +103,10 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     });
     const obData = await obRequest.json();
     setObjetives(obData.objetives);
-    let myTotalMoney: number = 0
-    for(let i: number = 0; i < obData.objetives.length; i++){
-      myTotalMoney+= parseInt(obData.objetives[i].amount);
-      setStateMoney(myTotalMoney)
+    let myTotalMoney: number = 0;
+    for (let i: number = 0; i < obData.objetives.length; i++) {
+      myTotalMoney += parseInt(obData.objetives[i].amount);
+      setStateMoney(myTotalMoney);
     }
     setStateObjetive(obData.objetives.length);
     return data.user;
@@ -159,14 +160,14 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     console.log(data);
   };
   const addPoint = (numero: number): string => {
-  // Convertir el número a una cadena y dividirlo en partes por cada tres dígitos
-  const partes = numero.toString().split(".");
-  partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    // Convertir el número a una cadena y dividirlo en partes por cada tres dígitos
+    const partes = numero.toString().split(".");
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-  // Unir las partes con el punto de mil
-  return partes.join(".");
-};
-
+    // Unir las partes con el punto de mil
+    return partes.join(".");
+  };
+  //TODO(Iván) add button and request to edit objetive
 
   useEffect(() => {
     profile();

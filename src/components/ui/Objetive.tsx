@@ -1,8 +1,9 @@
-import { test as image } from "@/helpers/helpers";
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "@/Context";
+import { VscChromeClose } from "react-icons/vsc";
 
 type Props = {
+  id?: number;
   title: string;
   amount: number;
   progress: number;
@@ -10,11 +11,39 @@ type Props = {
 };
 
 function Objetive(props: Props) {
-  const { addPoint } = useAppContext();
+  
+  const { addPoint, profile, objetives, setObjetives } = useAppContext();
   let p: number = 0;
+  const [opacity, setOpacity] = useState<number>(0);
 
   return (
-    <div className="flex pl-10">
+    <div
+      className="flex pl-10 relative"
+      onMouseOver={() => {
+        setOpacity(1);
+      }}
+      onMouseLeave={() => {
+        setOpacity(0);
+      }}
+    >
+      <button
+        className="absolute top-0 right-0 opacity-0"
+        onClick={async () => {
+          const request = await fetch(`/api/objetive/delete/${props.id}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const newObjetives = objetives.filter(
+            (objeti) => objeti.id !== props.id
+          );
+          setObjetives(newObjetives);
+        }}
+        style={{ opacity: opacity }}
+      >
+        <VscChromeClose className="text-titles text-20" />
+      </button>
       <section>
         <h2 className="text-center text-titles text-16 font-extrabold font-roboto">
           {p}%
@@ -49,14 +78,19 @@ function Objetive(props: Props) {
           />
         </div>
       </section>
-      <section className="grid items-center ml-10">
-        <div>
+      <section className="grid items-center ml-10 w-full">
+        <div className="w-full">
           <h2 className="text-white text-30 font-extrabold font-roboto">
             {props.title}
           </h2>
           <p className="text-titles text-16 font-extrabold font-roboto">
             {addPoint(props.progress)} / {addPoint(props.amount)}
           </p>
+        </div>
+        <div className="w-full flex items-center justify-center">
+          <button className="bg-titles w-125 rounded-16 " 
+         style={{opacity: opacity}}
+          > Editar </button>
         </div>
       </section>
     </div>

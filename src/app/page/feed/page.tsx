@@ -68,6 +68,7 @@ function Feed() {
                 return (
                   <div key={obje.id}>
                     <Objetive
+                      id={obje.id}
                       title={obje.title}
                       amount={obje.amount}
                       progress={obje.progress}
