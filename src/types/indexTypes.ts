@@ -8,6 +8,8 @@ export type ContextType = {
   setObjetives: (objetives: ObjetiveInterface[]) => void;
   formState: boolean;
   setFormState: (formState: boolean) => void;
+  editState: boolean;
+  setEditState: (editState: boolean) => void;
   newObjetive: ObjetiveInterface;
   setNewObjetive: (newObjetive: ObjetiveInterface) => void;
   auth: AuthInterface;
@@ -32,4 +34,6 @@ export type ContextType = {
   setStateObjetive: (stateObjetive: number)=> void;
   stateMoney: number;
   addPoint: (n: number)=> string;
+  editObjetive: ObjetiveInterface;
+  setEditObjetive: (editObjetive: ObjetiveInterface) => void;
 }

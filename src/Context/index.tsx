@@ -11,6 +11,8 @@ const AppContext = createContext<ContextType>({
   setObjetives: () => {},
   formState: false,
   setFormState: () => {},
+  editState: false,
+  setEditState: () => {},
   newObjetive: {
     title: "",
     amount: 0,
@@ -51,16 +53,28 @@ const AppContext = createContext<ContextType>({
   setStateObjetive: () => {},
   stateMoney: 0,
   addPoint: () => "",
+  editObjetive: {
+    amount: 0,
+    title: "",
+    progress: 0,
+  },
+  setEditObjetive: () => {}
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   //#region states/variables
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
+  const [editObjetive, setEditObjetive] = useState<ObjetiveInterface>({
+    title: "",
+    amount: 0,
+    progress: 0,
+  });
   const [stateMoney, setStateMoney] = useState<number>(0);
   const [stateObjetive, setStateObjetive] = useState<number>(0);
   const [stateMoneyComplete, setStateMoneyComplete] = useState<number>(0);
   const [stateObjetiveComplete, setStateObjetiveComplete] = useState<number>(0);
   const [formState, setFormState] = useState<boolean>(false);
+  const [editState, setEditState] = useState<boolean>(false);
   const [registerPassword, setRegisterPassword] = useState<boolean>(true);
   const [registerConfirmPassword, setRegisterConfirmPassword] =
     useState<boolean>(true);
@@ -180,6 +194,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         setObjetives,
         formState,
         setFormState,
+        editState,
+        setEditState,
         newObjetive,
         setNewObjetive,
         stadistic,
@@ -204,6 +220,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         setStateObjetive,
         stateMoney,
         addPoint,
+        editObjetive,
+        setEditObjetive
       }}
     >
       {children}
