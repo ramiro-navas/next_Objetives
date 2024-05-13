@@ -103,6 +103,7 @@ function Objetive(props: Props) {
               amount: props.amount,
               progress: props.progress,
               image: props.image,
+              id: props.id
             })
           }}
           > Editar </button>

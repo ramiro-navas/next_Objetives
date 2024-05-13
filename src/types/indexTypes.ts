@@ -1,7 +1,7 @@
-import { Objetive as ObjetiveInterface } from '@/interface/objetive';
-import { Auth as AuthInterface} from '@/interface/auth';
-import { Stadistic as StadisticInterface } from '@/interface/stadistic';
-import { Credential } from '@/interface/login';
+import { Objetive as ObjetiveInterface } from "@/interface/objetive";
+import { Auth as AuthInterface } from "@/interface/auth";
+import { Stadistic as StadisticInterface } from "@/interface/stadistic";
+import { Credential } from "@/interface/login";
 
 export type ContextType = {
   objetives: ObjetiveInterface[];
@@ -16,24 +16,25 @@ export type ContextType = {
   setAuth: (auth: AuthInterface) => void;
   stadistic: StadisticInterface;
   setStadistic: (stadistic: StadisticInterface) => void;
-  handleObjetive: (e: any)=> void;
-  profile: ()=>void;
-  createObjetive: ()=> void;
-  handleSubmit: (e: any)=> void;
-  handleChange: (e: any)=> void;
+  handleObjetive: (e: any) => void;
+  profile: () => void;
+  createObjetive: () => void;
+  handleSubmit: (e: any) => void;
+  handleChange: (e: any) => void;
   loginPassword: boolean;
-  setLoginPassword: (loginPassword: boolean)=> void;
+  setLoginPassword: (loginPassword: boolean) => void;
   credentials: Credential;
-  setCredentials: (credential: Credential)=> void;
-  getProfile: (e: any)=> void;
+  setCredentials: (credential: Credential) => void;
+  getProfile: (e: any) => void;
   registerPassword: boolean;
-  setRegisterPassword: (registerPassword : boolean)=> void;
+  setRegisterPassword: (registerPassword: boolean) => void;
   registerConfirmPassword: boolean;
-  setRegisterConfirmPassword: (registerConfirmPassword : boolean)=> void;
+  setRegisterConfirmPassword: (registerConfirmPassword: boolean) => void;
   stateObjetive: number;
-  setStateObjetive: (stateObjetive: number)=> void;
+  setStateObjetive: (stateObjetive: number) => void;
   stateMoney: number;
-  addPoint: (n: number)=> string;
+  addPoint: (n: number) => string;
   editObjetive: ObjetiveInterface;
   setEditObjetive: (editObjetive: ObjetiveInterface) => void;
-}
+  toEditObjetive: (id: any) => void;
+};

@@ -58,7 +58,8 @@ const AppContext = createContext<ContextType>({
     title: "",
     progress: 0,
   },
-  setEditObjetive: () => {}
+  setEditObjetive: () => {},
+  toEditObjetive: () => {},
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -68,6 +69,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     title: "",
     amount: 0,
     progress: 0,
+    id: 0,
   });
   const [stateMoney, setStateMoney] = useState<number>(0);
   const [stateObjetive, setStateObjetive] = useState<number>(0);
@@ -164,14 +166,12 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
       body: JSON.stringify(credentials),
     });
     const data = await request.json();
-    console.log(data);
   };
 
   const getProfile = async (e: any) => {
     e.preventDefault();
     const request = await fetch("/api/user/profile");
     const data = await request.json();
-    console.log(data);
   };
   const addPoint = (numero: number): string => {
     // Convertir el número a una cadena y dividirlo en partes por cada tres dígitos
@@ -181,7 +181,35 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     // Unir las partes con el punto de mil
     return partes.join(".");
   };
-  //TODO(Iván) add button and request to edit objetive
+  
+  const toEditObjetive = async (id: any) => {
+    const title: HTMLInputElement | null = document.getElementById(
+      "title"
+    ) as HTMLInputElement | null;
+    const amount: HTMLInputElement | null = document.getElementById(
+      "amount"
+    ) as HTMLInputElement | null;
+    const progress: HTMLInputElement | null = document.getElementById(
+      "progress"
+    ) as HTMLInputElement | null;
+
+    if (title && amount && progress) {
+      const request = await fetch(`/api/objetive/edit/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title.value,
+          amount: amount.value,
+          progress: progress.value,
+        }),
+      }).finally(() => {
+        profile();
+        setEditState(false);
+      });
+    }
+  };
 
   useEffect(() => {
     profile();
@@ -221,7 +249,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         stateMoney,
         addPoint,
         editObjetive,
-        setEditObjetive
+        setEditObjetive,
+        toEditObjetive,
       }}
     >
       {children}
