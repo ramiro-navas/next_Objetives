@@ -11,6 +11,8 @@ const AppContext = createContext<ContextType>({
   setObjetives: () => {},
   formState: false,
   setFormState: () => {},
+  editState: false,
+  setEditState: () => {},
   newObjetive: {
     title: "",
     amount: 0,
@@ -50,19 +52,34 @@ const AppContext = createContext<ContextType>({
   stateObjetive: 0,
   setStateObjetive: () => {},
   stateMoney: 0,
-  addPoint: ()=> ""
+  addPoint: () => "",
+  editObjetive: {
+    amount: 0,
+    title: "",
+    progress: 0,
+  },
+  setEditObjetive: () => {},
+  toEditObjetive: () => {},
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   //#region states/variables
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
+  const [editObjetive, setEditObjetive] = useState<ObjetiveInterface>({
+    title: "",
+    amount: 0,
+    progress: 0,
+    id: 0,
+  });
   const [stateMoney, setStateMoney] = useState<number>(0);
   const [stateObjetive, setStateObjetive] = useState<number>(0);
   const [stateMoneyComplete, setStateMoneyComplete] = useState<number>(0);
   const [stateObjetiveComplete, setStateObjetiveComplete] = useState<number>(0);
   const [formState, setFormState] = useState<boolean>(false);
+  const [editState, setEditState] = useState<boolean>(false);
   const [registerPassword, setRegisterPassword] = useState<boolean>(true);
-  const [registerConfirmPassword, setRegisterConfirmPassword] = useState<boolean>(true);
+  const [registerConfirmPassword, setRegisterConfirmPassword] =
+    useState<boolean>(true);
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
     title: "",
     amount: 0,
@@ -102,10 +119,10 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     });
     const obData = await obRequest.json();
     setObjetives(obData.objetives);
-    let myTotalMoney: number = 0
-    for(let i: number = 0; i < obData.objetives.length; i++){
-      myTotalMoney+= parseInt(obData.objetives[i].amount);
-      setStateMoney(myTotalMoney)
+    let myTotalMoney: number = 0;
+    for (let i: number = 0; i < obData.objetives.length; i++) {
+      myTotalMoney += parseInt(obData.objetives[i].amount);
+      setStateMoney(myTotalMoney);
     }
     setStateObjetive(obData.objetives.length);
     return data.user;
@@ -149,24 +166,50 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
       body: JSON.stringify(credentials),
     });
     const data = await request.json();
-    console.log(data);
   };
 
   const getProfile = async (e: any) => {
     e.preventDefault();
     const request = await fetch("/api/user/profile");
     const data = await request.json();
-    console.log(data);
   };
   const addPoint = (numero: number): string => {
-  // Convertir el número a una cadena y dividirlo en partes por cada tres dígitos
-  const partes = numero.toString().split(".");
-  partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    // Convertir el número a una cadena y dividirlo en partes por cada tres dígitos
+    const partes = numero.toString().split(".");
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-  // Unir las partes con el punto de mil
-  return partes.join(".");
-};
+    // Unir las partes con el punto de mil
+    return partes.join(".");
+  };
+  
+  const toEditObjetive = async (id: any) => {
+    const title: HTMLInputElement | null = document.getElementById(
+      "title"
+    ) as HTMLInputElement | null;
+    const amount: HTMLInputElement | null = document.getElementById(
+      "amount"
+    ) as HTMLInputElement | null;
+    const progress: HTMLInputElement | null = document.getElementById(
+      "progress"
+    ) as HTMLInputElement | null;
 
+    if (title && amount && progress) {
+      const request = await fetch(`/api/objetive/edit/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title.value,
+          amount: amount.value,
+          progress: progress.value,
+        }),
+      }).finally(() => {
+        profile();
+        setEditState(false);
+      });
+    }
+  };
 
   useEffect(() => {
     profile();
@@ -179,6 +222,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         setObjetives,
         formState,
         setFormState,
+        editState,
+        setEditState,
         newObjetive,
         setNewObjetive,
         stadistic,
@@ -203,6 +248,9 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         setStateObjetive,
         stateMoney,
         addPoint,
+        editObjetive,
+        setEditObjetive,
+        toEditObjetive,
       }}
     >
       {children}

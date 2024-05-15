@@ -9,6 +9,7 @@ import { Title } from "@/components/ui/Title";
 import { useAppContext } from "@/Context";
 
 function Register() {
+  //TODO(Ramiro) add register function
   const {
     registerPassword,
     setRegisterPassword,
