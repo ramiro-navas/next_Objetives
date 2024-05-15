@@ -5,6 +5,7 @@ import { ContextType } from "@/types/indexTypes";
 import { Stadistic as StadisticInterface } from "@/interface/stadistic";
 import { Auth as AuthInterface } from "@/interface/auth";
 import { Credential } from "@/interface/login";
+import User from "@/interface/user";
 
 const AppContext = createContext<ContextType>({
   objetives: [],
@@ -60,6 +61,15 @@ const AppContext = createContext<ContextType>({
   },
   setEditObjetive: () => {},
   toEditObjetive: () => {},
+  userToRegister: {
+    email: "",
+    name: "",
+    password: "",
+  },
+  SetUserToRegister: () => {},
+  registerUser: () => {},
+  registerMessage: "",
+  setRegisterMessage: ()=> {}
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -78,6 +88,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   const [formState, setFormState] = useState<boolean>(false);
   const [editState, setEditState] = useState<boolean>(false);
   const [registerPassword, setRegisterPassword] = useState<boolean>(true);
+  const [registerMessage, setRegisterMessage] = useState<string>("");
   const [registerConfirmPassword, setRegisterConfirmPassword] =
     useState<boolean>(true);
   const [newObjetive, setNewObjetive] = useState<ObjetiveInterface>({
@@ -101,6 +112,11 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     email: "",
     password: "",
   });
+  const [userToRegister, SetUserToRegister] = useState<User>({
+    email: "",
+    name: "",
+    password: ""
+  })
 
   //#region functions
   const handleObjetive = (e: any) => {
@@ -210,6 +226,44 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
       });
     }
   };
+  
+  const registerUser = async()=>{
+    const name: HTMLInputElement | null = document.getElementById("name") as HTMLInputElement | null;
+
+    const email: HTMLInputElement | null = document.getElementById("email") as HTMLInputElement | null;
+
+    const password: HTMLInputElement | null = document.getElementById("password") as HTMLInputElement | null;
+
+
+    const confirmPassword: HTMLInputElement | null = document.getElementById("confirmPassword") as HTMLInputElement | null;
+
+
+    if(name?.value && email?.value && password?.value){
+      const toRegister: User = {
+        email: email?.value,
+        name: name?.value,
+        password: password?.value,
+      }
+
+      if(password.value === confirmPassword?.value){
+        const request = await fetch("/api/user/register",{
+          method: "POST",
+          headers: {
+            "Content-Type": "aplication/json"
+          },
+          body: JSON.stringify(toRegister)
+        })
+        const data = await request.json();
+        if(data.status === "success") setRegisterMessage(data.status)
+      }else{
+        setRegisterMessage("Las contraseñas no coinciden")
+      }
+      
+    }else(
+      setRegisterMessage("Rellene todos los campos")
+    )
+
+  }
 
   useEffect(() => {
     profile();
@@ -251,6 +305,11 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         editObjetive,
         setEditObjetive,
         toEditObjetive,
+        userToRegister,
+        SetUserToRegister,
+        registerUser,
+        registerMessage,
+        setRegisterMessage,
       }}
     >
       {children}

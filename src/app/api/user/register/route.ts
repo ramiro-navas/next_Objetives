@@ -15,7 +15,7 @@ export const POST = async (request: any, { params }: any) => {
 
     if (exist) {
       return NextResponse.json({
-        status: "success",
+        status: "error",
         mesagge: "El usuario ya existe",
       });
     } else {

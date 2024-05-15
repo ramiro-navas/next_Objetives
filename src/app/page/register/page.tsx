@@ -15,6 +15,8 @@ function Register() {
     setRegisterPassword,
     registerConfirmPassword,
     setRegisterConfirmPassword,
+    registerUser,
+    registerMessage,
   } = useAppContext();
 
   return (
@@ -30,13 +32,17 @@ function Register() {
           <img src={logo} alt="logo_image" className="w-80 h-80 text-center" />
         </div>
         <Title />
-        <Input type="text" placeholder="Nombre" />
+        {registerMessage === "success" && (
+          <h2 className="text-titles text-center">Iniciando Sesion...</h2>
+        )}
+        <Input type="text" placeholder="Nombre" id="name" required />
         <div className="mt-12">
-          <Input type="email" placeholder="Correo" />
+          <Input type="email" placeholder="Correo" required id="email" />
         </div>
         <div className="flex relative mt-12 mb-2">
           <Input
             placeholder="Contraseña"
+            id="password"
             type={registerPassword === true ? "password" : "text"}
             required
           />
@@ -54,6 +60,7 @@ function Register() {
         <div className="flex relative mt-12 mb-2">
           <Input
             placeholder="Confirmar contraseña"
+            id="confirmPassword"
             type={registerConfirmPassword === true ? "password" : "text"}
             required
           />
@@ -67,7 +74,18 @@ function Register() {
             <BiLowVision className="text-titles text-20" />
           </button>
         </div>
-        <Button> Registrar </Button>
+        <Button
+          onClick={(e: any) => {
+            e.preventDefault();
+            registerUser();
+          }}
+        >
+          {" "}
+          Registrar{" "}
+        </Button>
+        {registerMessage.length > 0 && registerMessage !== "success" && (
+          <h2 className="text-red-600 font-semibold">*{registerMessage}</h2>
+        )}
       </form>
     </div>
   );

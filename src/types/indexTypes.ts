@@ -2,6 +2,7 @@ import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Auth as AuthInterface } from "@/interface/auth";
 import { Stadistic as StadisticInterface } from "@/interface/stadistic";
 import { Credential } from "@/interface/login";
+import User from "@/interface/user";
 
 export type ContextType = {
   objetives: ObjetiveInterface[];
@@ -37,4 +38,9 @@ export type ContextType = {
   editObjetive: ObjetiveInterface;
   setEditObjetive: (editObjetive: ObjetiveInterface) => void;
   toEditObjetive: (id: any) => void;
+  userToRegister: User;
+  SetUserToRegister: (userToRegister: User) => void;
+  registerUser: ()=> void;
+  registerMessage: string;
+  setRegisterMessage: (registerMessage: string) => void;
 };
