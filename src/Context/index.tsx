@@ -6,6 +6,7 @@ import { Stadistic as StadisticInterface } from "@/interface/stadistic";
 import { Auth as AuthInterface } from "@/interface/auth";
 import { Credential } from "@/interface/login";
 import User from "@/interface/user";
+import { Objetives } from "@/interface/objetives";
 
 const AppContext = createContext<ContextType>({
   objetives: [],
@@ -133,11 +134,11 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     const obRequest = await fetch(`/api/objetive/get/${data.user.id}`, {
       method: "GET",
     });
-    const obData = await obRequest.json();
+    const obData: Objetives = await obRequest.json();
     setObjetives(obData.objetives);
     let myTotalMoney: number = 0;
     for (let i: number = 0; i < obData.objetives.length; i++) {
-      myTotalMoney += parseInt(obData.objetives[i].amount);
+      myTotalMoney += obData.objetives[i].amount;
       setStateMoney(myTotalMoney);
     }
     setStateObjetive(obData.objetives.length);
@@ -265,9 +266,6 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
 
   }
 
-  useEffect(() => {
-    profile();
-  }, []);
   //#region values
   return (
     <AppContext.Provider

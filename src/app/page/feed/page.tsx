@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect} from "react";
 import Caroucel from "@/components/home/Caroucel";
 import Logo from "@/components/home/Logo";
 import Options from "@/components/home/Options";
@@ -14,21 +14,17 @@ function Feed() {
   const {
     formState,
     editState,
-    newObjetive,
     objetives,
     setFormState,
-    setNewObjetive,
-    setObjetives,
-    auth,
-    setAuth,
-    setStadistic,
     stadistic,
     profile,
-    handleObjetive,
     stateObjetive,
-    setStateObjetive,
     stateMoney,
   } = useAppContext();
+
+  useEffect(() => {
+    profile();
+  }, []);
 
   return (
     <div className="p-4">
