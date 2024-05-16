@@ -15,7 +15,6 @@ export const DELETE = async (url: any, { params }: any) => {
       const objetiveDelete = await prisma.objetive.delete({
         where: { id: parseInt(String(params.id)) },
       });
-      console.log(objetiveDelete);
       return NextResponse.json({
         status: "success",
         message: "Objetivo eliminado con exito",

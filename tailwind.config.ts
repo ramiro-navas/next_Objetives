@@ -17,6 +17,7 @@ const config: Config = {
         start: "#BAACDD",
         middle: "#87E5D3",
         end: "rgba(255,255,255,0)",
+        semi: "rgba(0,0,0,.5)"
       },
       fontSize: {
         "10": '10px',
@@ -40,47 +41,49 @@ const config: Config = {
       },
       padding:{
         "2": '2px',
-        "51": '51px'
+        "51": '51px',
+        "86": '86px',
       },
       width:{
-        form: '448px',
-        google: '20px',
-        logo: '60px',
-        circle: '120px',
-        "76": '76px',
+        "20": '20px',
+        "40": '40px',
+        "60": '60px',
         "70": '70px',
+        "76": '76px',
+        "80": '80px',
         "90": '90px',
-        "110": '110px',
         "100": '100px',
-
+        "110": '110px',
+        "125": '125px',
+        "448": '448px',
+        "500": '500px',
+        "600": '600px',
+        "700": '700px'
       },
       height:{
-        form: '600px',
-        input: '80px',
-        button: '32px',
-        google: '20px',
-        logo: '70px',
-        stadistic: '265px',
-        circle: '120px',
-        staDiv: '35px',
-        "166": '166px',
+        "20": '20px',
+        "30": '30px',
+        "32": '32px',
+        "40": '40px',
         "70": '70px',
+        "80": '80px',
         "90": '90px',
-        "110": '110px',
         "100": '100px',
-        
+        "110": '110px',
+        "166": '166px',
+        "200": '200px', 
+        "600": '600px',
       },
       strokeWidth:{
         "10": '10px'
       },
       margin: {
-        button: '16px',
-        small: '35px',
-        middle: '43px',
-        big: '78px',
         "3": "3px",
         "10": "10px",
-        "21": "21px"
+        "16": '16px',
+        "21": "21px",
+        "43": '43px',
+        "78": '78px',
       },
       gridTemplateColumns:{
         or: '48% 4% 48% ',
@@ -88,7 +91,6 @@ const config: Config = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        test: "#1f1f1f",
       },
       zIndex:{
         "1": "1"

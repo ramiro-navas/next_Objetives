@@ -3,7 +3,7 @@ import User from "@/interface/user";
 import { prisma } from "@/libs/prisma";
 const jwt = require("jsonwebtoken");
 import { cookies } from "next/headers";
-const cookie = require("cookie")
+const cookie = require("cookie");
 
 export const POST = async (req: any, res: any) => {
   const user: User = await req.json();
@@ -26,16 +26,6 @@ export const POST = async (req: any, res: any) => {
         process.env.SECRET_VALUE
       );
 
-      const serialized = cookie.serialize('token', token,{
-        value: token,
-        sameSite: 'strict',
-        httpOnly: true,
-        path: "/",
-        maxAge: 1000 * 60 * 60 * 24 * 30,
-        secure: process.env.NODE_ENV === "production",
-      })
-     
-
       cookies().set({
         name: "token",
         value: token,
@@ -43,7 +33,7 @@ export const POST = async (req: any, res: any) => {
         path: "/",
         maxAge: 1000 * 60 * 60 * 24 * 30,
         secure: process.env.NODE_ENV === "production",
-      })
+      });
 
       return NextResponse.json({
         status: "success",
@@ -55,7 +45,7 @@ export const POST = async (req: any, res: any) => {
         },
       });
     }
-    
+
     return NextResponse.json({
       status: "error",
       message: "Correo o contraseña incorrecto",

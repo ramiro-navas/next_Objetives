@@ -4,6 +4,7 @@ node_modules
 # inportant
 .env
 dev.db
+routet.ts
 
 
 # dependencies

@@ -1,45 +1,57 @@
 "use client";
+import React, { useEffect } from "react";
 import Caroucel from "@/components/home/Caroucel";
 import Logo from "@/components/home/Logo";
 import Options from "@/components/home/Options";
 import Stadistic from "@/components/home/Stadistic";
 import Objetive from "@/components/ui/Objetive";
-import React, { useEffect, useState } from "react";
 import { Objetive as ObjetiveInterface } from "@/interface/objetive";
+import { Form } from "@/components/ui";
+import { EditForm } from "@/components/ui";
+import { useAppContext } from "@/Context";
 
 function Feed() {
-  const [objetive, setObjetive] = useState<ObjetiveInterface[]>([]);
-
-  const getObjetives = async () => {
-    const request = await fetch("/api/objetive/get/2", {
-      method: "GET",
-    });
-    const data = await request.json();
-    setObjetive(data.objetives);
-  };
+  const {
+    formState,
+    editState,
+    objetives,
+    setFormState,
+    stadistic,
+    profile,
+    stateObjetive,
+    stateMoney,
+  } = useAppContext();
 
   useEffect(() => {
-    getObjetives();
+    profile();
   }, []);
 
   return (
     <div className="p-4">
       <div className=" grid grid-cols-2 ">
         <div className="grid">
-          <div className="w-full h-logo p-2 rounded-16 flex items-center bg-back">
+          <div className="w-full h-70 p-2 rounded-16 flex items-center bg-back">
             <Logo />
           </div>
           <div className="w-full flex items-end">
-            <Options />
+            <Options setFormState={setFormState} />
             <Caroucel />
           </div>
         </div>
         <div className="w-full grid grid-cols-2">
           <div className="flex justify-end ">
-            <Stadistic title="Dinero total" />
+            <Stadistic
+              title="Dinero total"
+              progress={stadistic.moneyComplete}
+              total={stateMoney}
+            />
           </div>
           <div className="flex justify-end ">
-            <Stadistic title="Todos los objetivos" />
+            <Stadistic
+              title="Todos los objetivos"
+              progress={stadistic.objetivesComplete}
+              total={stateObjetive}
+            />
           </div>
         </div>
       </div>
@@ -48,17 +60,17 @@ function Feed() {
           Objetivos
         </h2>
         <div className="w-full h-full mt-10 p-3 rounded-16 grid grid-cols-2">
-          {objetive.length >= 1 ? (
+          {objetives.length >= 1 ? (
             <>
-              {objetive.map((obje: ObjetiveInterface) => {
+              {objetives.map((obje: ObjetiveInterface) => {
                 return (
                   <div key={obje.id}>
-                    <Objetive 
-                      title={obje.title} 
-                      amount= {obje.amount}
+                    <Objetive
+                      id={obje.id}
+                      title={obje.title}
+                      amount={obje.amount}
                       progress={obje.progress}
                       image={obje.image}
-
                     />
                   </div>
                 );
@@ -71,6 +83,8 @@ function Feed() {
           )}
         </div>
       </section>
+      {formState && <Form />}
+      {editState && <EditForm />}
     </div>
   );
 }
