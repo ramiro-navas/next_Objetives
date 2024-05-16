@@ -9,9 +9,6 @@ interface Props {
 function Stadistic(props: Props) {
 
   const { addPoint } = useAppContext();
-
-  const { progress, total } = props;
-
   const [porcent, setPorcent] = useState<number>(0);
 
   useEffect(() => {

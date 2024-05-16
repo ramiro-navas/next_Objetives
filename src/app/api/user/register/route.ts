@@ -7,10 +7,8 @@ const jwt = require("jsonwebtoken");
 export const POST = async (request: any, { params }: any) => {
   const user: User = await request.json();
   
-
   try {
     const exist = await prisma.user.findFirst({
-      //*verificar si existe el usuario
       where: {
         email: user.email,
       },

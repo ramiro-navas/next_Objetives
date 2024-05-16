@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import Caroucel from "@/components/home/Caroucel";
 import Logo from "@/components/home/Logo";
 import Options from "@/components/home/Options";
@@ -7,7 +7,7 @@ import Stadistic from "@/components/home/Stadistic";
 import Objetive from "@/components/ui/Objetive";
 import { Objetive as ObjetiveInterface } from "@/interface/objetive";
 import { Form } from "@/components/ui";
-import { EditForm } from '@/components/ui';
+import { EditForm } from "@/components/ui";
 import { useAppContext } from "@/Context";
 
 function Feed() {

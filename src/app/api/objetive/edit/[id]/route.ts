@@ -1,9 +1,6 @@
-import { Objetive } from "@/interface/objetive";
 import { prisma } from "@/libs/prisma";
 import { cookies } from "next/headers";
-import { v2 as cloudinary } from "cloudinary";
-import { NextRequest, NextResponse } from "next/server";
-const { verify } = require("jsonwebtoken");
+import { NextResponse } from "next/server";
 
 export const PUT = async (request: any, { params }: any) => {
   const objetiveEdited = await request.json();

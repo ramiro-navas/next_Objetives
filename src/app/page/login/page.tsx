@@ -13,10 +13,7 @@ function Login() {
     getProfile,
     loginPassword,
     setLoginPassword,
-    credentials,
-    setCredentials,
   } = useAppContext();
-  
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -67,11 +64,7 @@ function Login() {
             Olvidé mi contraseña
           </Link>
         </div>
-        <Button
-          onClick={handleSubmit}
-        >
-          Iniciar sesíon
-        </Button>
+        <Button onClick={handleSubmit}>Iniciar sesíon</Button>
         <div className="grid grid-cols-or items-center mb-8">
           <hr className="h-px border-none rounded-md bg-gradient-to-r from-start via-middle to-end" />
           <h3 className="font-roboto text-12 text-center">O</h3>

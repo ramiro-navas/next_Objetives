@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
-import { v2 as cloudinary } from "cloudinary";
-import path, { resolve } from "path";
 import { prisma } from "@/libs/prisma";
 import { cookies } from "next/headers";
-import { title } from "process";
 const { verify } = require("jsonwebtoken");
 
 interface User {

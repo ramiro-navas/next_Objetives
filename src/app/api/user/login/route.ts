@@ -26,15 +26,6 @@ export const POST = async (req: any, res: any) => {
         process.env.SECRET_VALUE
       );
 
-      const serialized = cookie.serialize("token", token, {
-        value: token,
-        sameSite: "strict",
-        httpOnly: true,
-        path: "/",
-        maxAge: 1000 * 60 * 60 * 24 * 30,
-        secure: process.env.NODE_ENV === "production",
-      });
-
       cookies().set({
         name: "token",
         value: token,

@@ -11,14 +11,8 @@ type Props = {
 };
 
 function Objetive(props: Props) {
-  
-  const { setEditState, 
-    addPoint, 
-    profile, 
-    objetives, 
-    setObjetives,
-    setEditObjetive, 
-  } = useAppContext();
+  const { setEditState, addPoint, objetives, setObjetives, setEditObjetive } =
+    useAppContext();
   let p: number = 0;
   const [opacity, setOpacity] = useState<number>(0);
 
@@ -94,19 +88,23 @@ function Objetive(props: Props) {
           </p>
         </div>
         <div className="w-full flex items-center justify-center">
-          <button className="bg-titles w-125 rounded-16 " 
-         style={{opacity: opacity}}
-         onClick={() => {
-            setEditState(true);
-            setEditObjetive({
-              title: props.title,
-              amount: props.amount,
-              progress: props.progress,
-              image: props.image,
-              id: props.id
-            })
-          }}
-          > Editar </button>
+          <button
+            className="bg-titles w-125 rounded-16 "
+            style={{ opacity: opacity }}
+            onClick={() => {
+              setEditState(true);
+              setEditObjetive({
+                title: props.title,
+                amount: props.amount,
+                progress: props.progress,
+                image: props.image,
+                id: props.id,
+              });
+            }}
+          >
+            {" "}
+            Editar{" "}
+          </button>
         </div>
       </section>
     </div>
