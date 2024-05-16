@@ -7,6 +7,7 @@ import { Auth as AuthInterface } from "@/interface/auth";
 import { Credential } from "@/interface/login";
 import User from "@/interface/user";
 import { Objetives } from "@/interface/objetives";
+import { useRouter } from "next/navigation";
 
 const AppContext = createContext<ContextType>({
   objetives: [],
@@ -75,6 +76,7 @@ const AppContext = createContext<ContextType>({
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   //#region states/variables
+  const router = useRouter();
   const [objetives, setObjetives] = useState<ObjetiveInterface[]>([]);
   const [editObjetive, setEditObjetive] = useState<ObjetiveInterface>({
     title: "",
@@ -126,10 +128,11 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
       [e.target.name]: e.target.value,
     });
   };
-
+console.log(auth)
   const profile = async () => {
     const request = await fetch("/api/user/profile");
     const data = await request.json();
+    console.log(data)
     setAuth(data.user);
     const obRequest = await fetch(`/api/objetive/get/${data.user.id}`, {
       method: "GET",
@@ -183,6 +186,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
       body: JSON.stringify(credentials),
     });
     const data = await request.json();
+    router.push("/page/feed");
   };
 
   const getProfile = async (e: any) => {
@@ -263,7 +267,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     }else(
       setRegisterMessage("Rellene todos los campos")
     )
-
+    router.push("/page/feed")
   }
 
   //#region values

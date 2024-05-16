@@ -13,7 +13,6 @@ export const middleware = async (request: any) => {
         token.value,
         new TextEncoder().encode(process.env.SECRET_VALUE)
       );
-      console.log(ob);
     } catch (error) {
       console.log(error);
       return NextResponse.redirect(new URL("/page/login", request.url));

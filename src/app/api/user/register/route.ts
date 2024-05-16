@@ -34,7 +34,7 @@ export const POST = async (request: any, { params }: any) => {
         {
           email: user.email,
           name: user.name,
-          id: user.id,
+          id: userSaved.id,
           exp: Math.floor(Date.now() / 1000 + 60 * 60 * 24 * 30),
         },
         process.env.SECRET_VALUE
