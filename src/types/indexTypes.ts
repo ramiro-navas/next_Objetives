@@ -43,4 +43,5 @@ export type ContextType = {
   registerUser: ()=> void;
   registerMessage: string;
   setRegisterMessage: (registerMessage: string) => void;
+  logOut: ()=> void;
 };

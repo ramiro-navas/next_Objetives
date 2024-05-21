@@ -71,7 +71,8 @@ const AppContext = createContext<ContextType>({
   SetUserToRegister: () => {},
   registerUser: () => {},
   registerMessage: "",
-  setRegisterMessage: ()=> {}
+  setRegisterMessage: ()=> {},
+  logOut: ()=>{},
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -128,11 +129,10 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
       [e.target.name]: e.target.value,
     });
   };
-console.log(auth)
+
   const profile = async () => {
     const request = await fetch("/api/user/profile");
     const data = await request.json();
-    console.log(data)
     setAuth(data.user);
     const obRequest = await fetch(`/api/objetive/get/${data.user.id}`, {
       method: "GET",
@@ -269,6 +269,16 @@ console.log(auth)
     )
     router.push("/page/feed")
   }
+  const logOut = async()=>{
+    const request = await fetch("/api/user/logout",{
+      method: "POST",
+      headers: {
+        "Content-Type": "aplication/json"
+      }
+    })
+    const data = await request.json;
+    router.push("/page/login")
+  }
 
   //#region values
   return (
@@ -312,6 +322,7 @@ console.log(auth)
         registerUser,
         registerMessage,
         setRegisterMessage,
+        logOut,
       }}
     >
       {children}
