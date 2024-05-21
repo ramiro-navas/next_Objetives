@@ -12,11 +12,12 @@ export const PUT = async (request: any, { params }: any) => {
     },
   });
 
-  if (objetiveToEdit) {
-    const wasEdited = await prisma.objetive.update({
-      where: {
+  if(token){
+    if (objetiveToEdit) {
+      const wasEdited = await prisma.objetive.update({
+        where: {
         id: parseInt(id),
-      },
+        },
       data: {
         title: objetiveEdited.title,
         amount: parseInt(objetiveEdited.amount),
@@ -29,6 +30,7 @@ export const PUT = async (request: any, { params }: any) => {
       message: "Editado exitosamente",
       objetive: wasEdited,
     });
+
   } else {
     return NextResponse.json({
       status: "success",
