@@ -73,6 +73,7 @@ const AppContext = createContext<ContextType>({
   registerMessage: "",
   setRegisterMessage: ()=> {},
   logOut: ()=>{},
+  getPorcent: ()=> 0,
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -280,6 +281,12 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     router.push("/page/login")
   }
 
+  const getPorcent = (progress: number, amount: number)=>{
+    let num: number = (progress/amount)*100
+    const porcent = Math.round(num * 100)/100;
+    return porcent
+  }
+
   //#region values
   return (
     <AppContext.Provider
@@ -323,6 +330,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         registerMessage,
         setRegisterMessage,
         logOut,
+        getPorcent
       }}
     >
       {children}

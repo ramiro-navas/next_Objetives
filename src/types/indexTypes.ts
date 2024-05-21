@@ -44,4 +44,5 @@ export type ContextType = {
   registerMessage: string;
   setRegisterMessage: (registerMessage: string) => void;
   logOut: ()=> void;
+  getPorcent:(progress: number, amount: number) => number;
 };
