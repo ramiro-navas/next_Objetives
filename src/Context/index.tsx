@@ -74,6 +74,10 @@ const AppContext = createContext<ContextType>({
   setRegisterMessage: ()=> {},
   logOut: ()=>{},
   getPorcent: ()=> 0,
+  stateMoneyComplete: 0,
+  setStateMoneyComplete: ()=> {},
+  stateObjetiveComplete: 0,
+  setStateObjetiveComplete: () => {},
 });
 
 export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -141,9 +145,19 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     const obData: Objetives = await obRequest.json();
     setObjetives(obData.objetives);
     let myTotalMoney: number = 0;
+    let myProgressMoney: number = 0;
+    let myCompleteObjetive: number = 0;
     for (let i: number = 0; i < obData.objetives.length; i++) {
       myTotalMoney += obData.objetives[i].amount;
+      myProgressMoney += obData.objetives[i].progress;
       setStateMoney(myTotalMoney);
+      setStateMoneyComplete(myProgressMoney);
+      if(obData.objetives[i].progress >= obData.objetives[i].amount){
+        myCompleteObjetive++;
+        console.log(myCompleteObjetive);
+      }
+      setStateObjetiveComplete(myCompleteObjetive);
+      console.log(stateObjetiveComplete)
     }
     setStateObjetive(obData.objetives.length);
     return data.user;
@@ -330,7 +344,11 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         registerMessage,
         setRegisterMessage,
         logOut,
-        getPorcent
+        getPorcent,
+        stateMoneyComplete,
+        setStateMoneyComplete,
+        stateObjetiveComplete,
+        setStateObjetiveComplete,
       }}
     >
       {children}

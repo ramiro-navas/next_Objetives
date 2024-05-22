@@ -45,4 +45,8 @@ export type ContextType = {
   setRegisterMessage: (registerMessage: string) => void;
   logOut: ()=> void;
   getPorcent:(progress: number, amount: number) => number;
+  stateMoneyComplete: number;
+  setStateMoneyComplete: (stateMoneyComplete: number) => void;
+  stateObjetiveComplete: number;
+  setStateObjetiveComplete: (stateObjetiveComplete: number) => void;
 };
