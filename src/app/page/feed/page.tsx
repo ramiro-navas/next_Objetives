@@ -22,6 +22,7 @@ function Feed() {
     stateMoney,
     stateMoneyComplete,
     stateObjetiveComplete,
+    caroucel
   } = useAppContext();
 
   useEffect(() => {
