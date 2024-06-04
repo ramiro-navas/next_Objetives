@@ -19,55 +19,54 @@ export const GET = async (request: any)=>{
       userId: user.id
     }
   })
-  
-  let complete;
-  let more = {
-    title: "",
-    progress: 0,
-    amount:1,
-  };
-  let minus = {
-    title: "",
-    progress: 1,
-    amount: 1,
-  };
+  if (objetives.length > 0){
+    let complete;
+    let more = {
+      title: "",
+      progress: 0,
+      amount:1,
+    };
+    let minus = {
+      title: "",
+      progress: 1,
+      amount: 1,
+    };
 
-  for (let index = 0; index < objetives.length; index++) {
-    const element = objetives[index];
+    for (let index = 0; index < objetives.length; index++) {
+      const element = objetives[index];
     
-    if(index < objetives.length - 1){
-      if(getPorcent(element.progress, element.amount) == 100){
-        complete = element
-      }
-      
-      if(getPorcent(element.progress, element.amount) < 100){
-        if(getPorcent(more.progress, more.amount) < getPorcent(element.progress, element.amount)){
-          more = element
+      if(index < objetives.length - 1){
+        if(getPorcent(element.progress, element.amount) == 100){
+          complete = element
         }
-        if(getPorcent(minus.progress, minus.amount) >= getPorcent(element.progress, element.amount)){
+      
+        if(getPorcent(element.progress, element.amount) < 100){
+          if(getPorcent(more.progress, more.amount) < getPorcent(element.progress, element.amount)){
+            more = element
+          }
+          if(getPorcent(minus.progress, minus.amount) >= getPorcent(element.progress, element.amount)){
+            minus = element
+          }
+        }
+      }
+
+      if(index == objetives.length - 1){
+        if(getPorcent(element.progress, element.amount) == 100 && getPorcent(element.progress, element.amount) >= getPorcent(objetives[index - 1].progress, objetives[index - 1].amount)){
+          complete = element
+        }
+        if(getPorcent(element.progress, element.amount) < 100 && getPorcent(element.progress, element.amount) <= getPorcent(minus.progress, minus.amount)){
           minus = element
         }
-      }
-    }
-
-    if(index == objetives.length - 1){
-      if(getPorcent(element.progress, element.amount) == 100 && getPorcent(element.progress, element.amount) >= getPorcent(objetives[index - 1].progress, objetives[index - 1].amount)){
-        complete = element
-      }
-      if(getPorcent(element.progress, element.amount) < 100 && getPorcent(element.progress, element.amount) <= getPorcent(minus.progress, minus.amount)){
-        minus = element
-      }
-      if(getPorcent(element.progress, element.amount) < 100){
-        if(getPorcent(more.progress, more.amount) < getPorcent(element.progress, element.amount)){
-          more = element
+        if(getPorcent(element.progress, element.amount) < 100){
+          if(getPorcent(more.progress, more.amount) < getPorcent(element.progress, element.amount)){
+            more = element
+          }
         }
       }
     }
-  }console.log(minus);
-  
-  const last = objetives[objetives.length -1];
+    const last = objetives[objetives.length -1];
 
-  return NextResponse.json({
+    return NextResponse.json({
     status: "success",
     message: "caroucel obtenido",
     caroucel: [
@@ -92,5 +91,12 @@ export const GET = async (request: any)=>{
         objetive: more
       }
     ]
-  })
+    })
+
+  }else{
+    return NextResponse.json({
+      status: "error",
+      massage: "No hay objetivos"
+    })
+  }
 }
